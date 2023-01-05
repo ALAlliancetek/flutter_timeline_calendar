@@ -1,9 +1,9 @@
 <p align="center">
-<img src="https://github.com/ALAlliancetek/flutter_timeline_calender/blob/master/assets/flutter_timeline_calendar.png" height="400" alt="flutter Timeline Calendar Package" />
+<img src="https://github.com/ALAlliancetek/flutter_timeline_calendar/blob/master/assets/flutter_timeline_calendar.png" height="400" alt="flutter Timeline Calendar Package" />
 </p>
 
 <p align="center">
-<a href="https://pub.dev/packages/flutter_timeline_calendar"><img src="https://github.com/ALAlliancetek/flutter_timeline_calender/blob/master/assets/flutter_timline_calendar.svg" alt="Pub"></a>
+<a href="https://pub.dev/packages/flutter_timeline_calendar"><img src="https://github.com/ALAlliancetek/flutter_timeline_calendar/blob/master/assets/flutter_timline_calendar.svg" alt="Pub"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-purple.svg" alt="License: MIT"></a>
 </p>
 
@@ -41,7 +41,7 @@ Now in your Dart code, you can use:
 import 'package:flutter_timeline_calendar/flutter_timeline_calendar.dart';
 ```
 <p align="center">
-<img src="https://github.com/ALAlliancetek/flutter_timeline_calender/blob/master/assets/flutter_timeline_calendar_options.png" height="600" alt="flutter Event Calendar Package" />
+<img src="https://github.com/ALAlliancetek/flutter_timeline_calendar/blob/master/assets/flutter_timeline_calendar_options.png" height="600" alt="flutter Event Calendar Package" />
 <br></p>
 
 ## Basic Usage :
