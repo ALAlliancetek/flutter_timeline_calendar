@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/novaday-co/flutter_event_calendar/master/assets/flutter_timline_calendar.png" height="400" alt="flutter Timeline Calendar Package" />
+<img src="https://github.com/ALAlliancetek/flutter_timeline_calender/blob/master/assets/flutter_timeline_calendar.png" height="400" alt="flutter Timeline Calendar Package" />
 </p>
 
 <p align="center">
@@ -41,7 +41,7 @@ Now in your Dart code, you can use:
 import 'package:flutter_timeline_calendar/flutter_timeline_calendar.dart';
 ```
 <p align="center">
-<img src="https://raw.githubusercontent.com/novaday-co/flutter_event_calendar/master/assets/flutter_timline_calendar_options.png" height="600" alt="flutter Event Calendar Package" />
+<img src="https://github.com/ALAlliancetek/flutter_timeline_calender/blob/master/assets/flutter_timeline_calendar_options.png" height="600" alt="flutter Event Calendar Package" />
 <br></p>
 
 ## Basic Usage :
