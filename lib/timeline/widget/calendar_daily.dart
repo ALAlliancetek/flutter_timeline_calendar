@@ -108,7 +108,6 @@ class CalendarDaily extends StatelessWidget {
     int day = dayIndex;
     CalendarUtils.getDays(headersStyle.weekDayStringType, currentMonth)
         .forEach((index, weekDay) {
-      print(weekDay.toString());
       var selected = index == day;
 
       bool isBeforeToday =
