@@ -19,7 +19,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  flutter_timeline_calendar: ^1.0.2
+  flutter_timeline_calendar: ^1.0.3
 ```
 
 Then You can install packages from the command line:
@@ -140,9 +140,3 @@ You have many option for changes in : style , locale and structure.
 
 **Timeline Calendar** supports two types of calendar now . **Gregorian** , and **Jalali** .
 
-
-## Contribute :
-You can help us and contribute for :
-- New options
-- More locales
-- Better exceptions
