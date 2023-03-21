@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_timeline_calendar/timeline/model/datetime.dart';
 import 'package:flutter_timeline_calendar/timeline/provider/calendar_provider.dart';
 import 'package:flutter_timeline_calendar/timeline/provider/instance_provider.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_timeline_calendar/timeline/utils/calendar_utils.dart';
 import 'package:flutter_timeline_calendar/timeline/widget/calendar_daily.dart';
 import 'package:flutter_timeline_calendar/timeline/widget/calendar_monthly.dart';
 import 'package:flutter_timeline_calendar/timeline/widget/header.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import '../model/calendar_options.dart';
 import '../model/day_options.dart';
@@ -125,7 +125,8 @@ class _TimelineCalendarState extends State<TimelineCalendar> {
                               Padding(
                                 padding: const EdgeInsets.all(0.0),
                                 child: Container(
-                                  color: HeaderOptions.of(context).backgroundColor,
+                                  color:
+                                      HeaderOptions.of(context).backgroundColor,
                                   height: 150,
                                 ),
                               ),
@@ -146,7 +147,8 @@ class _TimelineCalendarState extends State<TimelineCalendar> {
                                 padding: const EdgeInsets.all(0.0),
                                 child: Container(
                                   height: 60,
-                                  color:  HeaderOptions.of(context).backgroundColor,
+                                  color:
+                                      HeaderOptions.of(context).backgroundColor,
                                 ),
                               ),
                               CalendarDaily(onCalendarChanged: () {

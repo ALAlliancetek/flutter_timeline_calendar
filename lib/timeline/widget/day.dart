@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 import '../model/calendar_options.dart';
@@ -65,6 +63,7 @@ class Day extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: _getTitleColor(),
+                    fontSize: dayOptions?.dayFontSize,
                     fontFamily: CalendarOptions.of(context).font,
                   ),
                 ),
@@ -97,6 +96,7 @@ class Day extends StatelessWidget {
                     '$day',
                     style: TextStyle(
                       color: textColor,
+                      fontSize: dayOptions?.dayFontSize,
                       fontFamily: CalendarOptions.of(context).font,
                     ),
                   ),

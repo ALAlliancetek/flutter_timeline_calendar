@@ -64,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       dayOptions: DayOptions(
         compactMode: true,
+        dayFontSize: 18.0,
         weekDaySelectedColor: const Color(0xff3AC3E2),
       ),
       headerOptions: HeaderOptions(

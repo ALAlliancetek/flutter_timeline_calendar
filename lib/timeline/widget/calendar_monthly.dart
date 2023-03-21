@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_timeline_calendar/timeline/widget/timeline_calendar.dart';
+
 import '../handlers/calendar_monthly_utils.dart';
 import '../handlers/translator.dart';
 import '../model/calendar_options.dart';
@@ -12,9 +13,7 @@ import 'day.dart';
 class CalendarMonthly extends StatefulWidget {
   Function onCalendarChanged;
 
-  CalendarMonthly(
-      {required this.onCalendarChanged, Key? key})
-      : super();
+  CalendarMonthly({required this.onCalendarChanged, Key? key}) : super();
 
   @override
   State<CalendarMonthly> createState() => _CalendarMonthlyState();
@@ -53,9 +52,10 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(15),
+      margin: const EdgeInsets.only(left: 15, right: 15),
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(6.0)),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(6.0)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -94,7 +94,7 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
                     color: dayNames[index] == dayName
                         ? DayOptions.of(context).selectedBackgroundColor
                         : null,
-                    fontSize: 15,
+                    fontSize: dayOptions?.dayFontSize,
                     fontFamily: CalendarOptions.of(context).font),
               ),
             ),
@@ -163,15 +163,14 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
       day: day,
       weekDay: '',
       dayStyle: DayStyle(
-          compactMode: DayOptions.of(context).compactMode,
-          enabled: DayOptions.of(context).disableDaysBeforeNow
-              ? !isBeforeToday
-              : true,
-          selected: day == currDay,
-          useUnselectedEffect: false,
-          useDisabledEffect: DayOptions.of(context).disableDaysBeforeNow
-              ? isBeforeToday
-              : false,),
+        compactMode: DayOptions.of(context).compactMode,
+        enabled:
+            DayOptions.of(context).disableDaysBeforeNow ? !isBeforeToday : true,
+        selected: day == currDay,
+        useUnselectedEffect: false,
+        useDisabledEffect:
+            DayOptions.of(context).disableDaysBeforeNow ? isBeforeToday : false,
+      ),
       onCalendarChanged: () {
         CalendarUtils.goToDay(day);
         widget.onCalendarChanged.call();
@@ -182,7 +181,6 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
   buildNextMonthDay(int day) {
     final year = CalendarMonthlyUtils.getYear(currMonth + 1);
     final month = CalendarMonthlyUtils.getMonth(currMonth + 1);
-
 
     return Day(
       day: day,
@@ -206,18 +204,15 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
     final year = CalendarMonthlyUtils.getYear(currMonth - 1);
     final month = CalendarMonthlyUtils.getMonth(currMonth - 1);
 
-
     bool isBeforeToday = CalendarUtils.isBeforeThanToday(year, month, day);
-
 
     return Day(
       day: day,
       weekDay: '',
       dayStyle: DayStyle(
         compactMode: true,
-        enabled: DayOptions.of(context).disableDaysBeforeNow
-            ? !isBeforeToday
-            :  true,
+        enabled:
+            DayOptions.of(context).disableDaysBeforeNow ? !isBeforeToday : true,
         selected: false,
         useUnselectedEffect: true,
       ),

@@ -19,7 +19,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  flutter_timeline_calendar: ^1.0.3
+  flutter_timeline_calendar: ^1.0.4
 ```
 
 Then You can install packages from the command line:
