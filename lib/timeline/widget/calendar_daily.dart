@@ -36,9 +36,9 @@ class CalendarDaily extends StatelessWidget {
           color: Colors.white, borderRadius: BorderRadius.circular(6.0)),
       height: DayOptions.of(context).showWeekDay
           ? DayOptions.of(context).compactMode
-              ? 100
-              : 130
-          : 100,
+              ? 90
+              : 100
+          : 90,
       child: Stack(
         children: [
           ListView(

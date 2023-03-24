@@ -19,7 +19,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  flutter_timeline_calendar: ^1.0.4
+  flutter_timeline_calendar: ^1.0.5
 ```
 
 Then You can install packages from the command line:
@@ -115,6 +115,7 @@ You have many option for changes in : style , locale and structure.
 | weekDayStringType 	 | WeekDayStringTypes             | Day names FULL or SHORT              |
 | MonthStringTypes 	  | MonthStringTypes 	             | Month names FULL or SHORT            |
 | headerTextColor	 	  | Color 	                        | The color of Header Text             |
+| headerTextSize	 	  | double 	                        | The size of Header Text             |
 | navigationColor	 	  | Color 	                        | The color of Header navigation icons | 
 | resetDateColor	 	   | Color 	                        | The color of reset date icon         |
 | backgroundColor	 	   | Color 	                        | The color of background of header and calendar         |

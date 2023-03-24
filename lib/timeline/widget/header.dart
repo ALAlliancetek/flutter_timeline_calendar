@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_timeline_calendar/timeline/widget/timeline_calendar.dart';
 import 'package:flutter_timeline_calendar/timeline/widget/select_month.dart';
 import 'package:flutter_timeline_calendar/timeline/widget/select_year.dart';
+import 'package:flutter_timeline_calendar/timeline/widget/timeline_calendar.dart';
 
 import '../model/calendar_options.dart';
 import '../model/day_options.dart';
@@ -73,7 +73,6 @@ class Header extends StatelessWidget {
                           : Alignment.centerLeft,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
-
                     children: [
                       GestureDetector(
                         onTap: () {
@@ -102,7 +101,8 @@ class Header extends StatelessWidget {
                             )}',
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
-                              fontSize: 20,
+                              fontSize:
+                                  HeaderOptions.of(context).headerTextSize,
                               color: HeaderOptions.of(context).headerTextColor,
                               fontFamily: CalendarOptions.of(context).font,
                             ),
@@ -131,7 +131,7 @@ class Header extends StatelessWidget {
                           '${CalendarUtils.getPartByInt(format: PartFormat.YEAR)}',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 20,
+                            fontSize: HeaderOptions.of(context).headerTextSize,
                             color: HeaderOptions.of(context).headerTextColor,
                             fontFamily: CalendarOptions.of(context).font,
                           ),
@@ -144,7 +144,7 @@ class Header extends StatelessWidget {
               // if (!isInTodayIndex()) buildRefreshView(),
               Row(
                 children: [
-                  !isInTodayIndex()?buildRefreshView(context):Container(),
+                  !isInTodayIndex() ? buildRefreshView(context) : Container(),
                   buildSelectViewType(context),
                   InkWell(
                     customBorder: CircleBorder(),
@@ -217,8 +217,8 @@ class Header extends StatelessWidget {
           padding: const EdgeInsets.all(5),
           child: Icon(
             CalendarOptions.of(context).viewType == ViewType.MONTHLY
-                ? Icons.calendar_today_outlined
-                : Icons.calendar_today_outlined,
+                ? Icons.calendar_today
+                : Icons.calendar_month,
             size: 18,
             color: HeaderOptions.of(context).calendarIconColor,
           ),

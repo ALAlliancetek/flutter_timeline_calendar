@@ -146,7 +146,7 @@ class _TimelineCalendarState extends State<TimelineCalendar> {
                               Padding(
                                 padding: const EdgeInsets.all(0.0),
                                 child: Container(
-                                  height: 60,
+                                  height: 40,
                                   color:
                                       HeaderOptions.of(context).backgroundColor,
                                 ),

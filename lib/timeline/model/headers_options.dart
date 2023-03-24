@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+
 import '../utils/calendar_types.dart';
 
 class HeaderOptions extends Model {
   WeekDayStringTypes weekDayStringType;
   MonthStringTypes monthStringType;
   Color headerTextColor;
+  double headerTextSize;
   Color navigationColor;
   Color resetDateColor;
   Color calendarIconColor;
@@ -15,6 +17,7 @@ class HeaderOptions extends Model {
     this.weekDayStringType = WeekDayStringTypes.FULL,
     this.monthStringType = MonthStringTypes.SHORT,
     this.headerTextColor = Colors.black,
+    this.headerTextSize = 20,
     this.resetDateColor = Colors.black,
     this.navigationColor = Colors.black,
     this.calendarIconColor = Colors.black,

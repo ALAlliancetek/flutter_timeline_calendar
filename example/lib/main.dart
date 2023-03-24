@@ -64,13 +64,15 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       dayOptions: DayOptions(
         compactMode: true,
-        dayFontSize: 18.0,
+        dayFontSize: 14.0,
+        disableFadeEffect: true,
         weekDaySelectedColor: const Color(0xff3AC3E2),
       ),
       headerOptions: HeaderOptions(
           weekDayStringType: WeekDayStringTypes.SHORT,
           monthStringType: MonthStringTypes.FULL,
           backgroundColor: const Color(0xff3AC3E2),
+          headerTextSize: 14,
           headerTextColor: Colors.black),
       onChangeDateTime: (datetime) {
         //print(datetime.getDate());
