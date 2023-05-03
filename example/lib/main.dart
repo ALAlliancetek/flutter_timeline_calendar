@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_timeline_calendar/timeline/model/calendar_options.dart';
+import 'package:flutter_timeline_calendar/timeline/model/datetime.dart';
 import 'package:flutter_timeline_calendar/timeline/model/day_options.dart';
 import 'package:flutter_timeline_calendar/timeline/model/headers_options.dart';
+import 'package:flutter_timeline_calendar/timeline/provider/instance_provider.dart';
 import 'package:flutter_timeline_calendar/timeline/utils/calendar_types.dart';
 import 'package:flutter_timeline_calendar/timeline/widget/timeline_calendar.dart';
 
@@ -36,6 +38,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late CalendarDateTime selectedDateTime;
+  @override
+  void initState() {
+    super.initState();
+    TimelineCalendar.calendarProvider = createInstance();
+    selectedDateTime = TimelineCalendar.calendarProvider.getDateTime();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,9 +84,19 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: const Color(0xff3AC3E2),
           headerTextSize: 14,
           headerTextColor: Colors.black),
-      onChangeDateTime: (datetime) {
-        //print(datetime.getDate());
+      onChangeDateTime: (dateTime) {
+        print("Date Change ${dateTime}");
+        selectedDateTime = dateTime;
       },
+      onDateTimeReset: (resetDateTime) {
+        print("Date Reset ${resetDateTime}");
+        selectedDateTime = resetDateTime;
+      },
+      onMonthChanged: (monthDateTime) {
+        print("Month Change ${monthDateTime}");
+        selectedDateTime = monthDateTime;
+      },
+      dateTime: selectedDateTime,
     );
   }
 }

@@ -103,8 +103,9 @@ class _TimelineCalendarState extends State<TimelineCalendar> {
                       setState(() {});
                     },
                     onMonthChanged: (int selectedMonth) {
-                      widget.onMonthChanged?.call(TimelineCalendar.dateTime!);
+                      //Interchange below 2 lines for getting latest selected date in v1.0.6
                       CalendarUtils.goToMonth(selectedMonth);
+                      widget.onMonthChanged?.call(TimelineCalendar.dateTime!);
                       setState(() {});
                     },
                     onViewTypeChanged: (ViewType viewType) {
@@ -112,8 +113,9 @@ class _TimelineCalendarState extends State<TimelineCalendar> {
                       widget.onChangeViewType?.call(viewType);
                     },
                     onYearChanged: (int selectedYear) {
-                      widget.onYearChanged?.call(TimelineCalendar.dateTime!);
+                      //Interchange below 2 lines for getting latest selected date in v1.0.6
                       CalendarUtils.goToYear(selectedYear);
+                      widget.onYearChanged?.call(TimelineCalendar.dateTime!);
                       setState(() {});
                     },
                   ),
