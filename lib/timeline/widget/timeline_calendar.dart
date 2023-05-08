@@ -105,7 +105,9 @@ class _TimelineCalendarState extends State<TimelineCalendar> {
                     onMonthChanged: (int selectedMonth) {
                       //Interchange below 2 lines for getting latest selected date in v1.0.6
                       CalendarUtils.goToMonth(selectedMonth);
-                      widget.onMonthChanged?.call(TimelineCalendar.dateTime!);
+                      if (isEventCalled(context)) {
+                        widget.onMonthChanged?.call(TimelineCalendar.dateTime!);
+                      }
                       setState(() {});
                     },
                     onViewTypeChanged: (ViewType viewType) {
@@ -115,7 +117,9 @@ class _TimelineCalendarState extends State<TimelineCalendar> {
                     onYearChanged: (int selectedYear) {
                       //Interchange below 2 lines for getting latest selected date in v1.0.6
                       CalendarUtils.goToYear(selectedYear);
-                      widget.onYearChanged?.call(TimelineCalendar.dateTime!);
+                      if (isEventCalled(context)) {
+                        widget.onYearChanged?.call(TimelineCalendar.dateTime!);
+                      }
                       setState(() {});
                     },
                   ),
@@ -193,5 +197,26 @@ class _TimelineCalendarState extends State<TimelineCalendar> {
     TimelineCalendar.dateTime = TimelineCalendar.calendarProvider.getDateTime();
     // EventCalendar.dateTime = null;
     super.dispose();
+  }
+
+  bool isEventCalled(BuildContext context) {
+    bool disableBeforeNow = DayOptions.of(context).disableDaysBeforeNow;
+    bool disableAfterNow = DayOptions.of(context).disableDaysAfterNow;
+    int currentMonth = CalendarUtils.getPartByInt(format: PartFormat.MONTH);
+    int currentYear = CalendarUtils.getPartByInt(format: PartFormat.YEAR);
+    int currentDay = CalendarUtils.getPartByInt(format: PartFormat.DAY);
+
+    bool isBeforeToday =
+        CalendarUtils.isBeforeThanToday(currentYear, currentMonth, currentDay);
+
+    bool isAfterToday =
+        CalendarUtils.isAfterToday(currentYear, currentMonth, currentDay);
+    if (disableBeforeNow) {
+      return !isBeforeToday;
+    } else if (disableAfterNow) {
+      return !isAfterToday;
+    } else {
+      return true;
+    }
   }
 }

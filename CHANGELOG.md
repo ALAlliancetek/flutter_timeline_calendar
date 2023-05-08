@@ -1,4 +1,5 @@
 ## Modify code for just calendar control
+## [1.0.7] - Version 1.0.7 released
 ## [1.0.6] - Version 1.0.6 released
 ## [1.0.5] - Version 1.0.5 released
 ## [1.0.4] - Version 1.0.4 released

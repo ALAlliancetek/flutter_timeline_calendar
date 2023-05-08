@@ -19,7 +19,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  flutter_timeline_calendar: ^1.0.6
+  flutter_timeline_calendar: ^1.0.7
 ```
 
 Then You can install packages from the command line:
@@ -59,7 +59,10 @@ You can load a full calendar .
             headerMonthShadowColor: Colors.black26,
             headerMonthBackColor: Colors.transparent,
           ),
-          dayOptions: DayOptions(compactMode: true,weekDaySelectedColor: const Color(0xff3AC3E2)),
+          dayOptions: DayOptions(
+              compactMode: true,
+              weekDaySelectedColor: const Color(0xff3AC3E2),
+              disableDaysBeforeNow: true),
           headerOptions: HeaderOptions(
               weekDayStringType: WeekDayStringTypes.SHORT,
               monthStringType: MonthStringTypes.FULL,
@@ -136,6 +139,9 @@ You have many option for changes in : style , locale and structure.
 | unselectedTextColor	 	       | Color 	                        | The text color of the unselected day           |
 | disableFadeEffect	 	         | bool 	                         | Whether days before now has fade effect or not |
 | disableDaysBeforeNow	 	      | bool 	                         | Whether days before now Disabled or not        |
+| disableDaysAfterNow	 	      | bool 	                         | Whether days after now Disabled or not       |
+
+***Note :*** *You can use either disableDaysBeforeNow OR disableDaysAfterNow at a time, both option can not work simultaneously.*
 
 ## Locales :
 

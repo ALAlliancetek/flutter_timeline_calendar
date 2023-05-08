@@ -76,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
         compactMode: true,
         dayFontSize: 14.0,
         disableFadeEffect: true,
+        disableDaysBeforeNow: true,
         weekDaySelectedColor: const Color(0xff3AC3E2),
       ),
       headerOptions: HeaderOptions(
@@ -85,16 +86,20 @@ class _MyHomePageState extends State<MyHomePage> {
           headerTextSize: 14,
           headerTextColor: Colors.black),
       onChangeDateTime: (dateTime) {
-        print("Date Change ${dateTime}");
+        print("Date Change $dateTime");
         selectedDateTime = dateTime;
       },
       onDateTimeReset: (resetDateTime) {
-        print("Date Reset ${resetDateTime}");
+        print("Date Reset $resetDateTime");
         selectedDateTime = resetDateTime;
       },
       onMonthChanged: (monthDateTime) {
-        print("Month Change ${monthDateTime}");
+        print("Month Change $monthDateTime");
         selectedDateTime = monthDateTime;
+      },
+      onYearChanged: (yearDateTime) {
+        print("Year Change $yearDateTime");
+        selectedDateTime = yearDateTime;
       },
       dateTime: selectedDateTime,
     );

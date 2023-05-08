@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-
 class DayOptions extends Model {
   Color weekDaySelectedColor;
   Color weekDayUnselectedColor;
@@ -14,6 +13,7 @@ class DayOptions extends Model {
   Color unselectedTextColor;
   bool disableFadeEffect;
   bool disableDaysBeforeNow;
+  bool disableDaysAfterNow;
   double dayFontSize;
 
   DayOptions({
@@ -25,11 +25,13 @@ class DayOptions extends Model {
     this.showWeekDay = true,
     this.compactMode = false,
     this.disableDaysBeforeNow = false,
+    this.disableDaysAfterNow = false,
     this.disableFadeEffect = false,
     this.disabledTextColor = Colors.grey,
     this.unselectedTextColor = Colors.black,
     this.dayFontSize = 12,
   });
 
-  static DayOptions of(BuildContext context) => ScopedModel.of<DayOptions>(context);
+  static DayOptions of(BuildContext context) =>
+      ScopedModel.of<DayOptions>(context);
 }

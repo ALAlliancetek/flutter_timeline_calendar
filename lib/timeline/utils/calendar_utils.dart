@@ -1,4 +1,5 @@
 import 'package:flutter_timeline_calendar/timeline/widget/timeline_calendar.dart';
+
 import '../handlers/translator.dart';
 import '../model/datetime.dart';
 import '../model/headers_options.dart';
@@ -110,4 +111,9 @@ class CalendarUtils {
     return currentDateTime.difference(now.toDateTime()).isNegative;
   }
 
+  static isAfterToday(int currentYear, int currentMonth, int currentDay) {
+    CalendarDateTime now = TimelineCalendar.calendarProvider.getDateTime();
+    DateTime currentDateTime = DateTime(currentYear, currentMonth, currentDay);
+    return currentDateTime.difference(now.toDateTime()).inDays >= 1;
+  }
 }

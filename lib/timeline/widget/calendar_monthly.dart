@@ -158,18 +158,24 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
 
     bool isBeforeToday =
         CalendarUtils.isBeforeThanToday(curYear, currMonth, day);
-
+    bool isAfterToday = CalendarUtils.isAfterToday(curYear, currMonth, day);
     return Day(
       day: day,
       weekDay: '',
       dayStyle: DayStyle(
         compactMode: DayOptions.of(context).compactMode,
-        enabled:
-            DayOptions.of(context).disableDaysBeforeNow ? !isBeforeToday : true,
+        enabled: (DayOptions.of(context).disableDaysBeforeNow
+            ? !isBeforeToday
+            : DayOptions.of(context).disableDaysAfterNow
+                ? !isAfterToday
+                : true),
         selected: day == currDay,
         useUnselectedEffect: false,
-        useDisabledEffect:
-            DayOptions.of(context).disableDaysBeforeNow ? isBeforeToday : false,
+        useDisabledEffect: DayOptions.of(context).disableDaysBeforeNow
+            ? isBeforeToday
+            : DayOptions.of(context).disableDaysAfterNow
+                ? isAfterToday
+                : false,
       ),
       onCalendarChanged: () {
         CalendarUtils.goToDay(day);
@@ -181,15 +187,18 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
   buildNextMonthDay(int day) {
     final year = CalendarMonthlyUtils.getYear(currMonth + 1);
     final month = CalendarMonthlyUtils.getMonth(currMonth + 1);
-
+    bool isAfterToday = CalendarUtils.isAfterToday(year, month, day);
     return Day(
       day: day,
       weekDay: '',
       dayStyle: DayStyle(
         compactMode: DayOptions.of(context).compactMode,
-        enabled: true,
+        enabled:
+            DayOptions.of(context).disableDaysAfterNow ? !isAfterToday : true,
         selected: false,
         useUnselectedEffect: true,
+        useDisabledEffect:
+            DayOptions.of(context).disableDaysAfterNow ? isAfterToday : false,
       ),
       onCalendarChanged: () {
         // reset to first to fix switching between 31/30/29 month lengths
@@ -215,6 +224,8 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
             DayOptions.of(context).disableDaysBeforeNow ? !isBeforeToday : true,
         selected: false,
         useUnselectedEffect: true,
+        useDisabledEffect:
+            DayOptions.of(context).disableDaysBeforeNow ? isBeforeToday : false,
       ),
       onCalendarChanged: () {
         // reset to first to fix switching between 31/30/29 month lengths

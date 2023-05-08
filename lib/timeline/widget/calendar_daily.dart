@@ -114,16 +114,25 @@ class CalendarDaily extends StatelessWidget {
       bool isBeforeToday =
           CalendarUtils.isBeforeThanToday(currentYear, currentMonth, index);
 
+      bool isAfterToday =
+          CalendarUtils.isAfterToday(currentYear, currentMonth, index);
+
       days.add(Day(
         day: index,
         dayStyle: DayStyle(
           compactMode: DayOptions.of(context).compactMode,
-          enabled: (true),
+          enabled: (DayOptions.of(context).disableDaysBeforeNow
+              ? !isBeforeToday
+              : DayOptions.of(context).disableDaysAfterNow
+                  ? !isAfterToday
+                  : true),
           selected: selected,
           useUnselectedEffect: false,
           useDisabledEffect: DayOptions.of(context).disableDaysBeforeNow
               ? isBeforeToday
-              : false,
+              : DayOptions.of(context).disableDaysAfterNow
+                  ? isAfterToday
+                  : false,
         ),
         weekDay: weekDay,
         onCalendarChanged: () {
