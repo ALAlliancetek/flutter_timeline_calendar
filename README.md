@@ -141,7 +141,7 @@ You have many option for changes in : style , locale and structure.
 | disableDaysBeforeNow	 	      | bool 	                         | Whether days before now Disabled or not        |
 | disableDaysAfterNow	 	      | bool 	                         | Whether days after now Disabled or not       |
 
-***Note :*** *You can use either disableDaysBeforeNow OR disableDaysAfterNow at a time, both option can not work simultaneously.*
+***Note :*** *You can use either **disableDaysBeforeNow** OR **disableDaysAfterNow** at a time, both option can not work simultaneously.*
 
 ## Locales :
 
