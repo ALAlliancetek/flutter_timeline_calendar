@@ -116,4 +116,10 @@ class CalendarUtils {
     DateTime currentDateTime = DateTime(currentYear, currentMonth, currentDay);
     return currentDateTime.difference(now.toDateTime()).inDays >= 1;
   }
+
+  static isToday(int currentYear, int currentMonth, int currentDay) {
+    CalendarDateTime now = TimelineCalendar.calendarProvider.getDateTime();
+    DateTime currentDateTime = DateTime(currentYear, currentMonth, currentDay);
+    return currentDateTime.isAtSameMomentAs(now.toDateTime());
+  }
 }

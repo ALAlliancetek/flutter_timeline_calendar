@@ -159,9 +159,11 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
     bool isBeforeToday =
         CalendarUtils.isBeforeThanToday(curYear, currMonth, day);
     bool isAfterToday = CalendarUtils.isAfterToday(curYear, currMonth, day);
+    bool isToday = CalendarUtils.isToday(curYear, currMonth, day);
     return Day(
       day: day,
       weekDay: '',
+      isToday: isToday,
       dayStyle: DayStyle(
         compactMode: DayOptions.of(context).compactMode,
         enabled: (DayOptions.of(context).disableDaysBeforeNow
@@ -188,9 +190,11 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
     final year = CalendarMonthlyUtils.getYear(currMonth + 1);
     final month = CalendarMonthlyUtils.getMonth(currMonth + 1);
     bool isAfterToday = CalendarUtils.isAfterToday(year, month, day);
+    bool isToday = CalendarUtils.isToday(year, month, day);
     return Day(
       day: day,
       weekDay: '',
+      isToday: isToday,
       dayStyle: DayStyle(
         compactMode: DayOptions.of(context).compactMode,
         enabled:
@@ -214,10 +218,11 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
     final month = CalendarMonthlyUtils.getMonth(currMonth - 1);
 
     bool isBeforeToday = CalendarUtils.isBeforeThanToday(year, month, day);
-
+    bool isToday = CalendarUtils.isToday(year, month, day);
     return Day(
       day: day,
       weekDay: '',
+      isToday: isToday,
       dayStyle: DayStyle(
         compactMode: true,
         enabled:

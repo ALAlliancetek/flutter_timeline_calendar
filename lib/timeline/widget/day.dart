@@ -13,6 +13,7 @@ class Day extends StatelessWidget {
   CalendarOptions? calendarOptions;
   DayStyle? dayStyle;
   late double opacity;
+  bool isToday;
 
   Day(
       {required this.day,
@@ -20,6 +21,7 @@ class Day extends StatelessWidget {
       this.dayOptions,
       this.dayStyle,
       this.onCalendarChanged,
+      this.isToday = false,
       this.calendarOptions})
       : super() {
     dayOptions ??= DayOptions();
@@ -36,7 +38,6 @@ class Day extends StatelessWidget {
     dayOptions = DayOptions.of(context);
     calendarOptions = CalendarOptions.of(context);
     opacity = _shouldHaveTransparentColor() ? 0.5 : 1;
-
     textColor = dayStyle!.useDisabledEffect
         ? dayOptions!.disabledTextColor
         : dayStyle!.selected
@@ -79,11 +80,18 @@ class Day extends StatelessWidget {
                         WeekDayStringTypes.FULL
                     ? 4
                     : 0)),
-            decoration: BoxDecoration(
-                color: dayStyle!.selected
-                    ? dayOptions!.selectedBackgroundColor
-                    : dayOptions!.unselectedBackgroundColor,
-                shape: BoxShape.circle),
+            decoration: (isToday && dayOptions?.differentStyleForToday == true)
+                ? BoxDecoration(
+                    border: Border.all(
+                      color: dayOptions!.selectedBackgroundColor,
+                    ),
+                    color: dayOptions?.todayBackgroundColor,
+                    shape: BoxShape.circle)
+                : BoxDecoration(
+                    color: dayStyle!.selected
+                        ? dayOptions!.selectedBackgroundColor
+                        : dayOptions!.unselectedBackgroundColor,
+                    shape: BoxShape.circle),
             constraints: BoxConstraints(
                 minWidth: double.infinity,
                 minHeight: dayStyle!.compactMode ? 35 : 40),
@@ -95,7 +103,10 @@ class Day extends StatelessWidget {
                   child: Text(
                     '$day',
                     style: TextStyle(
-                      color: textColor,
+                      color: (isToday &&
+                              dayOptions?.differentStyleForToday == true)
+                          ? dayOptions?.todayTextColor
+                          : textColor,
                       fontSize: dayOptions?.dayFontSize,
                       fontFamily: CalendarOptions.of(context).font,
                     ),

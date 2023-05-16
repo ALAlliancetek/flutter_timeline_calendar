@@ -15,6 +15,9 @@ class DayOptions extends Model {
   bool disableDaysBeforeNow;
   bool disableDaysAfterNow;
   double dayFontSize;
+  Color todayBackgroundColor;
+  Color todayTextColor;
+  bool differentStyleForToday;
 
   DayOptions({
     this.weekDaySelectedColor = Colors.red,
@@ -30,6 +33,9 @@ class DayOptions extends Model {
     this.disabledTextColor = Colors.grey,
     this.unselectedTextColor = Colors.black,
     this.dayFontSize = 12,
+    this.todayBackgroundColor = Colors.transparent,
+    this.todayTextColor = Colors.black,
+    this.differentStyleForToday = false,
   });
 
   static DayOptions of(BuildContext context) =>

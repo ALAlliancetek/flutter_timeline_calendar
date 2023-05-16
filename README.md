@@ -19,7 +19,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  flutter_timeline_calendar: ^1.0.7
+  flutter_timeline_calendar: ^1.0.8
 ```
 
 Then You can install packages from the command line:
@@ -140,6 +140,9 @@ You have many option for changes in : style , locale and structure.
 | disableFadeEffect	 	         | bool 	                         | Whether days before now has fade effect or not |
 | disableDaysBeforeNow	 	      | bool 	                         | Whether days before now Disabled or not        |
 | disableDaysAfterNow	 	      | bool 	                         | Whether days after now Disabled or not       |
+| todayTextColor	 	          | Color 	                         | The text color of today's date      |
+| todayBackgroundColor	 	      | Color 	                         | The background color of today's date       |
+| differentStyleForToday	 	  | bool 	                         | Whether today date style is different from other dates or not |
 
 ***Note :*** *You can use either **disableDaysBeforeNow** OR **disableDaysAfterNow** at a time, both option can not work simultaneously.*
 
