@@ -19,7 +19,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  flutter_timeline_calendar: ^1.0.8
+  flutter_timeline_calendar: ^1.0.9
 ```
 
 Then You can install packages from the command line:
@@ -42,6 +42,10 @@ import 'package:flutter_timeline_calendar/flutter_timeline_calendar.dart';
 ```
 <p align="center">
 <img src="https://raw.githubusercontent.com/ALAlliancetek/flutter_timeline_calendar/master/assets/flutter_timeline_calendar_options.png" height="600" alt="flutter Timeline Calendar Package" />
+<br></p>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/ALAlliancetek/flutter_timeline_calendar/master/assets/flutter_timeline_week_style.png" height="175" alt="flutter Timeline Calendar Package" />
 <br></p>
 
 ## Basic Usage :
@@ -109,7 +113,9 @@ You have many option for changes in : style , locale and structure.
 | headerMonthShadowColor	 	 | Color 	                        | The shadow color of Calendar card                                  |
 | headerMonthElevation	 	   | double 	                       | The elevation of shadow color Calendar card                        |
 | headerMonthShape	 	       | ShapeBorder 	                  | The shape of Calendar card like(RoundedRectangleBorder)            |
-| bottomSheetBackColor	 	   | Color 	                        | The background color of select month and year bottom sheet)        |
+| bottomSheetBackColor	 	   | Color 	                        | The background color of select month and year bottom sheet)
+| weekStartDate	 	            | DateTime 	                        | The background color of the week started from date)
+| weekEndDate	 	            | DateTime 	                        | The background color of the week ended from date) |
 
 ### HeaderOptions :
 

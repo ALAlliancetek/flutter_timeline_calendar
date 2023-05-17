@@ -14,6 +14,9 @@ class Day extends StatelessWidget {
   DayStyle? dayStyle;
   late double opacity;
   bool isToday;
+  bool isWeekStartDate;
+  bool isWeekEndDate;
+  bool isInBetweenWeekDate;
 
   Day(
       {required this.day,
@@ -22,7 +25,10 @@ class Day extends StatelessWidget {
       this.dayStyle,
       this.onCalendarChanged,
       this.isToday = false,
-      this.calendarOptions})
+      this.calendarOptions,
+      this.isWeekStartDate = false,
+      this.isWeekEndDate = false,
+      this.isInBetweenWeekDate = false})
       : super() {
     dayOptions ??= DayOptions();
     dayStyle ??= const DayStyle();
@@ -71,48 +77,66 @@ class Day extends StatelessWidget {
               ),
             ),
           ],
-          AnimatedContainer(
-            duration: Duration(milliseconds: 500),
-            curve: Curves.ease,
-            padding: dayStyle!.compactMode
-                ? EdgeInsets.zero
-                : (EdgeInsets.all(HeaderOptions.of(context).weekDayStringType ==
-                        WeekDayStringTypes.FULL
-                    ? 4
-                    : 0)),
-            decoration: (isToday && dayOptions?.differentStyleForToday == true)
-                ? BoxDecoration(
-                    border: Border.all(
-                      color: dayOptions!.selectedBackgroundColor,
-                    ),
-                    color: dayOptions?.todayBackgroundColor,
-                    shape: BoxShape.circle)
-                : BoxDecoration(
-                    color: dayStyle!.selected
-                        ? dayOptions!.selectedBackgroundColor
-                        : dayOptions!.unselectedBackgroundColor,
-                    shape: BoxShape.circle),
-            constraints: BoxConstraints(
-                minWidth: double.infinity,
-                minHeight: dayStyle!.compactMode ? 35 : 40),
-            child: Stack(
-              fit: StackFit.passthrough,
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    '$day',
-                    style: TextStyle(
-                      color: (isToday &&
-                              dayOptions?.differentStyleForToday == true)
-                          ? dayOptions?.todayTextColor
-                          : textColor,
-                      fontSize: dayOptions?.dayFontSize,
-                      fontFamily: CalendarOptions.of(context).font,
+          Container(
+            decoration: BoxDecoration(
+                border: Border(
+                    left: _borderSideVisible(isWeekStartDate),
+                    top: _borderSideVisible(isWeekStartDate ||
+                        isInBetweenWeekDate ||
+                        isWeekEndDate),
+                    right: _borderSideVisible(isWeekEndDate),
+                    bottom: _borderSideVisible(isWeekStartDate ||
+                        isInBetweenWeekDate ||
+                        isWeekEndDate)),
+                color: _isWeekView(
+                        isWeekStartDate, isWeekEndDate, isInBetweenWeekDate)
+                    ? dayOptions!.selectedBackgroundColor.withOpacity(0.2)
+                    : Colors.transparent),
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 500),
+              curve: Curves.ease,
+              padding: dayStyle!.compactMode
+                  ? EdgeInsets.zero
+                  : (EdgeInsets.all(
+                      HeaderOptions.of(context).weekDayStringType ==
+                              WeekDayStringTypes.FULL
+                          ? 4
+                          : 0)),
+              decoration:
+                  (isToday && dayOptions?.differentStyleForToday == true)
+                      ? BoxDecoration(
+                          border: Border.all(
+                            color: dayOptions!.selectedBackgroundColor,
+                          ),
+                          color: dayOptions?.todayBackgroundColor,
+                          shape: BoxShape.circle)
+                      : BoxDecoration(
+                          color: dayStyle!.selected
+                              ? dayOptions!.selectedBackgroundColor
+                              : dayOptions!.unselectedBackgroundColor,
+                          shape: BoxShape.circle),
+              constraints: BoxConstraints(
+                  minWidth: double.infinity,
+                  minHeight: dayStyle!.compactMode ? 35 : 40),
+              child: Stack(
+                fit: StackFit.passthrough,
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      '$day',
+                      style: TextStyle(
+                        color: (isToday &&
+                                dayOptions?.differentStyleForToday == true)
+                            ? dayOptions?.todayTextColor
+                            : textColor,
+                        fontSize: dayOptions?.dayFontSize,
+                        fontFamily: CalendarOptions.of(context).font,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
@@ -147,6 +171,19 @@ class Day extends StatelessWidget {
 
   _shouldHaveTransparentColor() {
     return !dayStyle!.enabled || dayStyle!.useUnselectedEffect;
+  }
+
+  _borderSideVisible(bool isVisible) {
+    return isVisible
+        ? BorderSide(
+            color: dayOptions!.selectedBackgroundColor,
+            width: 1,
+          )
+        : BorderSide.none;
+  }
+
+  _isWeekView(bool isStartDate, bool isEndDate, bool isWeekDay) {
+    return isStartDate || isEndDate || isWeekDay;
   }
 }
 

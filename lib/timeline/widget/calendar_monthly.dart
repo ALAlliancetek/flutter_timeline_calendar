@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_timeline_calendar/timeline/utils/datetime_extension.dart';
 import 'package:flutter_timeline_calendar/timeline/widget/timeline_calendar.dart';
 
 import '../handlers/calendar_monthly_utils.dart';
@@ -25,6 +26,8 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
   late DayOptions dayOptions;
   int currDay = -1;
   int currMonth = -1;
+  DateTime? weekStartDate;
+  DateTime? weekEndDate;
 
   @override
   void initState() {
@@ -105,6 +108,9 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
   }
 
   _buildMonthView() {
+    weekStartDate = CalendarOptions.of(context).weekStartDate;
+    weekEndDate = CalendarOptions.of(context).weekEndDate;
+
     final int firstDayIndex =
         CalendarMonthlyUtils.getFirstDayOfMonth(dayNames, headersStyle);
     final int lastDayIndex =
@@ -160,10 +166,24 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
         CalendarUtils.isBeforeThanToday(curYear, currMonth, day);
     bool isAfterToday = CalendarUtils.isAfterToday(curYear, currMonth, day);
     bool isToday = CalendarUtils.isToday(curYear, currMonth, day);
+
+    bool isWeekStartDate = false, isWeekEndDate = false;
+    bool? isInBetweenWeekDate = false;
+    if (weekStartDate != null && weekEndDate != null) {
+      DateTime currentDateTime = DateTime(curYear, currMonth, day);
+      isWeekStartDate = currentDateTime.isAtSameMomentAs(weekStartDate!);
+      isWeekEndDate = currentDateTime.isAtSameMomentAs(weekEndDate!);
+      isInBetweenWeekDate =
+          currentDateTime.isBetween(weekStartDate!, weekEndDate!);
+    }
+
     return Day(
       day: day,
       weekDay: '',
       isToday: isToday,
+      isWeekStartDate: isWeekStartDate,
+      isWeekEndDate: isWeekEndDate,
+      isInBetweenWeekDate: isInBetweenWeekDate!,
       dayStyle: DayStyle(
         compactMode: DayOptions.of(context).compactMode,
         enabled: (DayOptions.of(context).disableDaysBeforeNow
@@ -191,10 +211,24 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
     final month = CalendarMonthlyUtils.getMonth(currMonth + 1);
     bool isAfterToday = CalendarUtils.isAfterToday(year, month, day);
     bool isToday = CalendarUtils.isToday(year, month, day);
+
+    bool isWeekStartDate = false, isWeekEndDate = false;
+    bool? isInBetweenWeekDate = false;
+    if (weekStartDate != null && weekEndDate != null) {
+      DateTime currentDateTime = DateTime(year, month, day);
+      isWeekStartDate = currentDateTime.isAtSameMomentAs(weekStartDate!);
+      isWeekEndDate = currentDateTime.isAtSameMomentAs(weekEndDate!);
+      isInBetweenWeekDate =
+          currentDateTime.isBetween(weekStartDate!, weekEndDate!);
+    }
+
     return Day(
       day: day,
       weekDay: '',
       isToday: isToday,
+      isWeekStartDate: isWeekStartDate,
+      isWeekEndDate: isWeekEndDate,
+      isInBetweenWeekDate: isInBetweenWeekDate!,
       dayStyle: DayStyle(
         compactMode: DayOptions.of(context).compactMode,
         enabled:
@@ -219,10 +253,23 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
 
     bool isBeforeToday = CalendarUtils.isBeforeThanToday(year, month, day);
     bool isToday = CalendarUtils.isToday(year, month, day);
+
+    bool isWeekStartDate = false, isWeekEndDate = false;
+    bool? isInBetweenWeekDate = false;
+    if (weekStartDate != null && weekEndDate != null) {
+      DateTime currentDateTime = DateTime(year, month, day);
+      isWeekStartDate = currentDateTime.isAtSameMomentAs(weekStartDate!);
+      isWeekEndDate = currentDateTime.isAtSameMomentAs(weekEndDate!);
+      isInBetweenWeekDate =
+          currentDateTime.isBetween(weekStartDate!, weekEndDate!);
+    }
     return Day(
       day: day,
       weekDay: '',
       isToday: isToday,
+      isWeekStartDate: isWeekStartDate,
+      isWeekEndDate: isWeekEndDate,
+      isInBetweenWeekDate: isInBetweenWeekDate!,
       dayStyle: DayStyle(
         compactMode: true,
         enabled:

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_timeline_calendar/timeline/widget/timeline_calendar.dart';
+import 'package:flutter_timeline_calendar/timeline/flutter_timeline_calendar.dart';
+import 'package:flutter_timeline_calendar/timeline/utils/datetime_extension.dart';
 
-import '../model/datetime.dart';
-import '../model/day_options.dart';
-import '../model/headers_options.dart';
-import '../utils/calendar_types.dart';
 import '../utils/calendar_utils.dart';
 import 'day.dart';
 
@@ -12,7 +9,8 @@ class CalendarDaily extends StatelessWidget {
   Function? onCalendarChanged;
   var dayIndex;
   late ScrollController animatedTo;
-
+  DateTime? weekStartDate;
+  DateTime? weekEndDate;
   CalendarDaily({this.onCalendarChanged}) : super() {
     dayIndex = CalendarUtils.getPartByInt(format: PartFormat.DAY);
   }
@@ -27,6 +25,8 @@ class CalendarDaily extends StatelessWidget {
                     ? 80.0
                     : 60.0)) *
             (dayIndex - 1));
+    weekStartDate = CalendarOptions.of(context).weekStartDate;
+    weekEndDate = CalendarOptions.of(context).weekEndDate;
 
     executeAsync(context);
     // Yearly , Monthly , Weekly and Daily calendar
@@ -118,9 +118,22 @@ class CalendarDaily extends StatelessWidget {
           CalendarUtils.isAfterToday(currentYear, currentMonth, index);
 
       bool isToday = CalendarUtils.isToday(currentYear, currentMonth, index);
+
+      bool isWeekStartDate = false, isWeekEndDate = false;
+      bool? isInBetweenWeekDate = false;
+      if (weekStartDate != null && weekEndDate != null) {
+        DateTime currentDateTime = DateTime(currentYear, currentMonth, index);
+        isWeekStartDate = currentDateTime.isAtSameMomentAs(weekStartDate!);
+        isWeekEndDate = currentDateTime.isAtSameMomentAs(weekEndDate!);
+        isInBetweenWeekDate =
+            currentDateTime.isBetween(weekStartDate!, weekEndDate!);
+      }
       days.add(Day(
         day: index,
         isToday: isToday,
+        isWeekStartDate: isWeekStartDate,
+        isWeekEndDate: isWeekEndDate,
+        isInBetweenWeekDate: isInBetweenWeekDate!,
         dayStyle: DayStyle(
           compactMode: DayOptions.of(context).compactMode,
           enabled: (DayOptions.of(context).disableDaysBeforeNow
