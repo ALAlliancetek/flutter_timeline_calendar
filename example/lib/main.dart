@@ -83,7 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
           headerMonthShadowColor: Colors.black26,
           headerMonthBackColor: Colors.transparent,
           weekStartDate: weekStart,
-          weekEndDate: weekEnd),
+          weekEndDate: weekEnd,
+      ),
       dayOptions: DayOptions(
           compactMode: true,
           dayFontSize: 14.0,
@@ -92,7 +93,13 @@ class _MyHomePageState extends State<MyHomePage> {
           differentStyleForToday: true,
           todayBackgroundColor: Colors.black,
           selectedBackgroundColor: const Color(0xff3AC3E2),
-          todayTextColor: Colors.white),
+          todayTextColor: Colors.white,
+        eventDates: [
+          DateTime.now(),
+          DateTime.now().add(const Duration(days: 1)),
+          DateTime.now().add(const Duration(days: 2)),
+        ],
+      ),
       headerOptions: HeaderOptions(
           weekDayStringType: WeekDayStringTypes.SHORT,
           monthStringType: MonthStringTypes.FULL,
@@ -118,6 +125,9 @@ class _MyHomePageState extends State<MyHomePage> {
         print("Year Change $yearDateTime");
         selectedDateTime = yearDateTime;
         getLatestWeek();
+      },
+      onChangeViewType: (viewType) {
+        print("View Type Change $viewType");
       },
       dateTime: selectedDateTime,
     );

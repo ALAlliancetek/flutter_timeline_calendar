@@ -17,26 +17,28 @@ class Day extends StatelessWidget {
   bool isWeekStartDate;
   bool isWeekEndDate;
   bool isInBetweenWeekDate;
-
+  final DateTime? date;
   Day(
-      {required this.day,
-      required this.weekDay,
-      this.dayOptions,
-      this.dayStyle,
-      this.onCalendarChanged,
-      this.isToday = false,
-      this.calendarOptions,
-      this.isWeekStartDate = false,
-      this.isWeekEndDate = false,
-      this.isInBetweenWeekDate = false})
-      : super() {
+      {
+        required this.day,
+        required this.weekDay,
+        this.dayOptions,
+        this.dayStyle,
+        this.onCalendarChanged,
+        this.isToday = false,
+        this.calendarOptions,
+        this.isWeekStartDate = false,
+        this.isWeekEndDate = false,
+        this.isInBetweenWeekDate = false,
+        this.date,
+      })
+      :  super() {
     dayOptions ??= DayOptions();
     dayStyle ??= const DayStyle();
     calendarOptions ??= CalendarOptions();
   }
 
   late Widget child;
-
   late Color textColor;
 
   @override
@@ -49,6 +51,13 @@ class Day extends StatelessWidget {
         : dayStyle!.selected
             ? dayOptions!.selectedTextColor
             : dayOptions!.unselectedTextColor;
+
+    // MATCH THE DATES USING THE DYNAMICALLY GENERATED CURRENT MONTH/YEAR
+    final List<DateTime> eventDates = dayOptions!.eventDates;
+    final bool hasEvent = eventDates.any((eventDate) =>
+        eventDate.year == date?.year &&
+        eventDate.month == date?.month &&
+        eventDate.day == date?.day);
 
     child = InkWell(
       onTap: (() {
@@ -123,16 +132,38 @@ class Day extends StatelessWidget {
                 children: [
                   Align(
                     alignment: Alignment.center,
-                    child: Text(
-                      '$day',
-                      style: TextStyle(
-                        color: (isToday &&
-                                dayOptions?.differentStyleForToday == true)
-                            ? dayOptions?.todayTextColor
-                            : textColor,
-                        fontSize: dayOptions?.dayFontSize,
-                        fontFamily: CalendarOptions.of(context).font,
-                      ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          '$day',
+                          style: TextStyle(
+                            color: (isToday &&
+                                    dayOptions?.differentStyleForToday == true)
+                                ? dayOptions?.todayTextColor
+                                : textColor,
+                            fontSize: dayOptions?.dayFontSize,
+                            fontFamily: CalendarOptions.of(context).font,
+                          ),
+                        ),
+                        // CONDITIONAL EVENT DOT
+                        if (hasEvent) ...[
+                          const SizedBox(height: 4),
+                          // Custom Dot Marker
+                          Container(
+                            width: 5,
+                            height: 5,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              // Match the color to your theme or make it dynamic
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ] else ...[
+                          // Invisible placeholder layout element to prevent row misalignment
+                          const SizedBox(height: 9),
+                        ],
+                      ],
                     ),
                   ),
                 ],

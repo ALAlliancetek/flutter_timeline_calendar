@@ -176,9 +176,11 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
       isInBetweenWeekDate =
           currentDateTime.isBetween(weekStartDate!, weekEndDate!);
     }
+    final DateTime currentDate = DateTime(curYear, currMonth, day);
 
     return Day(
       day: day,
+      date: currentDate,
       weekDay: '',
       isToday: isToday,
       isWeekStartDate: isWeekStartDate,
@@ -221,9 +223,11 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
       isInBetweenWeekDate =
           currentDateTime.isBetween(weekStartDate!, weekEndDate!);
     }
+    final DateTime currentDate = DateTime(year, month, day);
 
     return Day(
       day: day,
+      date: currentDate,
       weekDay: '',
       isToday: isToday,
       isWeekStartDate: isWeekStartDate,
@@ -263,8 +267,10 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
       isInBetweenWeekDate =
           currentDateTime.isBetween(weekStartDate!, weekEndDate!);
     }
+    final DateTime currentDate = DateTime(year, month, day);
     return Day(
       day: day,
+      date: currentDate,
       weekDay: '',
       isToday: isToday,
       isWeekStartDate: isWeekStartDate,

@@ -111,6 +111,10 @@ class CalendarDaily extends StatelessWidget {
         .forEach((index, weekDay) {
       var selected = index == day;
 
+      // Actual date represented by this Day widget
+      final DateTime currentDateTime =
+          DateTime(currentYear, currentMonth, index);
+
       bool isBeforeToday =
           CalendarUtils.isBeforeThanToday(currentYear, currentMonth, index);
 
@@ -130,6 +134,7 @@ class CalendarDaily extends StatelessWidget {
       }
       days.add(Day(
         day: index,
+        date: currentDateTime,
         isToday: isToday,
         isWeekStartDate: isWeekStartDate,
         isWeekEndDate: isWeekEndDate,
