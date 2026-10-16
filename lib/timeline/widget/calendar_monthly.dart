@@ -161,6 +161,11 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
 
   buildCurrentMonthDay(day) {
     final curYear = CalendarMonthlyUtils.getYear(currMonth);
+    final selectedDate = TimelineCalendar.dateTime!;
+    final bool isSelected =
+        selectedDate.year == curYear &&
+            selectedDate.month == currMonth &&
+            selectedDate.day == day;
 
     bool isBeforeToday =
         CalendarUtils.isBeforeThanToday(curYear, currMonth, day);
@@ -193,7 +198,9 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
             : DayOptions.of(context).disableDaysAfterNow
                 ? !isAfterToday
                 : true),
-        selected: day == currDay,
+        selected: DayOptions.of(context).isHighlight1stDay ? day == currDay : isSelected && isToday,
+        //selected: day == currDay,
+        //selected: isSelected && isToday,
         useUnselectedEffect: false,
         useDisabledEffect: DayOptions.of(context).disableDaysBeforeNow
             ? isBeforeToday

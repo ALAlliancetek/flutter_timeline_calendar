@@ -43,10 +43,11 @@ class Header extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      CalendarUtils.goToDay(1);
-                      CalendarUtils.previousMonth();
-                      onMonthChanged.call(
-                          CalendarUtils.getPartByInt(format: PartFormat.MONTH));
+                      // CalendarUtils.goToDay(1);
+                      // CalendarUtils.previousMonth();
+                      changeMonth(context, next: false);
+                      // onMonthChanged.call(
+                      //     CalendarUtils.getPartByInt(format: PartFormat.MONTH));
                     },
                     customBorder: const CircleBorder(),
                     child: Padding(
@@ -149,10 +150,11 @@ class Header extends StatelessWidget {
                   InkWell(
                     customBorder: CircleBorder(),
                     onTap: () {
-                      CalendarUtils.goToDay(1);
-                      CalendarUtils.nextMonth();
-                      onMonthChanged.call(
-                          CalendarUtils.getPartByInt(format: PartFormat.MONTH));
+                      // CalendarUtils.goToDay(1);
+                      // CalendarUtils.nextMonth();
+                      changeMonth(context, next: true);
+                      // onMonthChanged.call(
+                      //     CalendarUtils.getPartByInt(format: PartFormat.MONTH));
                     },
                     child: Padding(
                       padding: EdgeInsets.all(8),
@@ -227,4 +229,22 @@ class Header extends StatelessWidget {
     }
     return const SizedBox();
   }
+
+
+
+  void changeMonth(BuildContext context, {required bool next}) {
+    if (next) {
+      CalendarUtils.nextMonth();
+    } else {
+      CalendarUtils.previousMonth();
+    }
+
+    final month =
+    CalendarUtils.getPartByInt(format: PartFormat.MONTH);
+
+    onMonthChanged.call(month);
+  }
+
+
+
 }

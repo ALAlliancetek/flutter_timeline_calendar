@@ -19,6 +19,7 @@ class DayOptions extends Model {
   Color todayTextColor;
   bool differentStyleForToday;
   List<DateTime> eventDates;
+  bool isHighlight1stDay;
 
   DayOptions({
     this.weekDaySelectedColor = Colors.red,
@@ -38,6 +39,7 @@ class DayOptions extends Model {
     this.todayTextColor = Colors.black,
     this.differentStyleForToday = false,
     this.eventDates = const [],
+    this.isHighlight1stDay = true,
   });
 
   static DayOptions of(BuildContext context) =>

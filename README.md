@@ -71,6 +71,7 @@ You can load a full calendar .
                   DateTime.now().add(const Duration(days: 1)),
                   DateTime.now().add(const Duration(days: 2)),
               ],
+              isHighlight1stDay: true,
           ),
           headerOptions: HeaderOptions(
               weekDayStringType: WeekDayStringTypes.SHORT,
@@ -144,24 +145,25 @@ You have many option for changes in : style , locale and structure.
 
 ### DayOptions :
 
-| Option       	               | Type                         	 | Description                                                   |
-|------------------------------|--------------------------------|---------------------------------------------------------------|
-| weekDaySelectedColor	 	      | Color 	                        | The color of the Selected weekday                             |
-| weekDayUnselectedColor	 	    | Color 	                        | The color of the UnSelected weekday                           |
-| showWeekDay	 	               | bool 	                         | Whether weekdays show or not                                  |
-| compactMode	 	               | bool 	                         | Whether the Calendar card is compact or not                   |
-| selectedBackgroundColor	 	   | Color 	                        | The background color of the selected day                      |
-| unselectedBackgroundColor	 	 | Color 	                        | The background color of the unselected day                    |
-| selectedTextColor	 	         | Color 	                        | The text color of the selected day                            |
-| disabledTextColor	 	         | Color 	                        | The text color of the disabled day                            |
-| unselectedTextColor	 	       | Color 	                        | The text color of the unselected day                          |
-| disableFadeEffect	 	         | bool 	                         | Whether days before now has fade effect or not                |
-| disableDaysBeforeNow	 	      | bool 	                         | Whether days before now Disabled or not                       |
-| disableDaysAfterNow	 	      | bool 	                         | Whether days after now Disabled or not                        |
-| todayTextColor	 	          | Color 	                         | The text color of today's date                                |
-| todayBackgroundColor	 	      | Color 	                         | The background color of today's date                          |
-| differentStyleForToday	 	  | bool 	                         | Whether today date style is different from other dates or not |
-| eventDates	 	               | List<DateTime> 	                         | The list of event dates, display dot below the dates          |
+| Option       	               | Type                         	 | Description                                                                  |
+|------------------------------|--------------------------------|------------------------------------------------------------------------------|
+| weekDaySelectedColor	 	      | Color 	                        | The color of the Selected weekday                                            |
+| weekDayUnselectedColor	 	    | Color 	                        | The color of the UnSelected weekday                                          |
+| showWeekDay	 	               | bool 	                         | Whether weekdays show or not                                                 |
+| compactMode	 	               | bool 	                         | Whether the Calendar card is compact or not                                  |
+| selectedBackgroundColor	 	   | Color 	                        | The background color of the selected day                                     |
+| unselectedBackgroundColor	 	 | Color 	                        | The background color of the unselected day                                   |
+| selectedTextColor	 	         | Color 	                        | The text color of the selected day                                           |
+| disabledTextColor	 	         | Color 	                        | The text color of the disabled day                                           |
+| unselectedTextColor	 	       | Color 	                        | The text color of the unselected day                                         |
+| disableFadeEffect	 	         | bool 	                         | Whether days before now has fade effect or not                               |
+| disableDaysBeforeNow	 	      | bool 	                         | Whether days before now Disabled or not                                      |
+| disableDaysAfterNow	 	      | bool 	                         | Whether days after now Disabled or not                                       |
+| todayTextColor	 	          | Color 	                         | The text color of today's date                                               |
+| todayBackgroundColor	 	      | Color 	                         | The background color of today's date                                         |
+| differentStyleForToday	 	  | bool 	                         | Whether today date style is different from other dates or not                |
+| eventDates	 	               | List<DateTime> 	                         | The list of event dates, display dot below the dates                         |
+| isHighlight1stDay	 	               | bool 	                         | Whether the first day of the month is highlighted or not, bydefault its true |
 
 
 ***Note :*** *You can use either **disableDaysBeforeNow** OR **disableDaysAfterNow** at a time, both option can not work simultaneously.*

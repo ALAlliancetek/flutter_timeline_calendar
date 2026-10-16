@@ -109,7 +109,17 @@ class CalendarDaily extends StatelessWidget {
     int day = dayIndex;
     CalendarUtils.getDays(headersStyle.weekDayStringType, currentMonth)
         .forEach((index, weekDay) {
-      var selected = index == day;
+          
+      bool selected1Day = index == day;
+      //print("selected1Day index: $index, day: $day");
+     
+      final selectedDate = TimelineCalendar.dateTime!;
+      final bool selected =
+          selectedDate.year == currentYear &&
+              selectedDate.month == currentMonth &&
+              selectedDate.day == index &&
+              CalendarUtils.isToday(currentYear, currentMonth, index);
+      //print("isHighlight1stDay: ${DayOptions.of(context).isHighlight1stDay}, selected1Day: $selected1Day, selected: $selected");
 
       // Actual date represented by this Day widget
       final DateTime currentDateTime =
@@ -146,7 +156,9 @@ class CalendarDaily extends StatelessWidget {
               : DayOptions.of(context).disableDaysAfterNow
                   ? !isAfterToday
                   : true),
-          selected: selected,
+          selected: DayOptions.of(context).isHighlight1stDay == true ? selected1Day : selected,
+          //selected: selected1Day,
+          //selected: selected,
           useUnselectedEffect: false,
           useDisabledEffect: DayOptions.of(context).disableDaysBeforeNow
               ? isBeforeToday
