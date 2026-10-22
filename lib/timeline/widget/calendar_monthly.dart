@@ -198,7 +198,8 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
             : DayOptions.of(context).disableDaysAfterNow
                 ? !isAfterToday
                 : true),
-        selected: DayOptions.of(context).isHighlight1stDay ? day == currDay : isSelected && isToday,
+        selected: DayOptions.of(context).isHighlight1stDay ? day == currDay : isSelected || isToday,
+        //selected: DayOptions.of(context).isHighlight1stDay ? day == currDay : isSelected && isToday
         //selected: day == currDay,
         //selected: isSelected && isToday,
         useUnselectedEffect: false,

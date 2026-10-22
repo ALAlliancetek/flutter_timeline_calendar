@@ -94,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
           todayBackgroundColor: Colors.black,
           selectedBackgroundColor: const Color(0xff3AC3E2),
           todayTextColor: Colors.white,
-          isHighlight1stDay: true,
+          isHighlight1stDay: false,
         eventDates: [
           DateTime.now(),
           DateTime.now().add(const Duration(days: 1)),
