@@ -1,5 +1,5 @@
 ## Modify code for just calendar control
-## [1.0.13] - Version 1.0.12 released
+## [1.0.13] - Version 1.0.13 released - Add weekview in calender
 ## [1.0.12] - Version 1.0.12 released
 ## [1.0.11] - Version 1.0.11 released
 ## [1.0.10] - Version 1.0.10 released
