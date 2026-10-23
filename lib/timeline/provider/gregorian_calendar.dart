@@ -14,15 +14,29 @@ class GregorianCalendar extends CalendarProvider {
   @override
   CalendarDateTime getNextMonthDateTime() {
     final date = _getSelectedDate();
-    return CalendarDateTime.parseDateTime(
-        DateTime(date.year, date.month + 1, 1).toString())!;
+    int nextMonth = date.month + 1;
+    int nextYear = date.year;
+    if (nextMonth > 12) {
+      nextMonth = 1;
+      nextYear++;
+    }
+    int maxDays = DateTime(nextYear, nextMonth + 1, 0).day;
+    int day = date.day > maxDays ? maxDays : date.day;
+    return CalendarDateTime(year: nextYear, month: nextMonth, day: day);
   }
 
   @override
   CalendarDateTime getPreviousMonthDateTime() {
     final date = _getSelectedDate();
-    return CalendarDateTime.parseDateTime(
-        DateTime(date.year, date.month - 1, 1).toString())!;
+    int prevMonth = date.month - 1;
+    int prevYear = date.year;
+    if (prevMonth < 1) {
+      prevMonth = 12;
+      prevYear--;
+    }
+    int maxDays = DateTime(prevYear, prevMonth + 1, 0).day;
+    int day = date.day > maxDays ? maxDays : date.day;
+    return CalendarDateTime(year: prevYear, month: prevMonth, day: day);
   }
 
   @override
@@ -115,13 +129,17 @@ class GregorianCalendar extends CalendarProvider {
   @override
   CalendarDateTime goToMonth(index) {
     dynamic date = _getSelectedDate();
-    return CalendarDateTime(year: date.year, month: index, day: 1);
+    int maxDays = DateTime(date.year, index + 1, 0).day;
+    int day = date.day > maxDays ? maxDays : date.day;
+    return CalendarDateTime(year: date.year, month: index, day: day);
   }
 
   @override
   CalendarDateTime goToYear(index) {
     dynamic date = _getSelectedDate();
-    return CalendarDateTime(year: index, month: date.month, day: 1);
+    int maxDays = DateTime(index, date.month + 1, 0).day;
+    int day = date.day > maxDays ? maxDays : date.day;
+    return CalendarDateTime(year: index, month: date.month, day: day);
   }
 
   @override

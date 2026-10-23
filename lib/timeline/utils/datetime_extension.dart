@@ -30,11 +30,17 @@ extension DateTimeExtension on DateTime? {
     return null;
   }
 
-  DateTime? findFirstDateOfTheWeek() {
+  DateTime? findFirstDateOfTheWeek({bool startWeekWithSunday = false}) {
+    if (startWeekWithSunday) {
+      return this?.subtract(Duration(days: (this?.weekday)! % 7));
+    }
     return this?.subtract(Duration(days: (this?.weekday)! - 1));
   }
 
-  DateTime? findLastDateOfTheWeek() {
+  DateTime? findLastDateOfTheWeek({bool startWeekWithSunday = false}) {
+    if (startWeekWithSunday) {
+      return this?.add(Duration(days: 6 - ((this?.weekday)! % 7)));
+    }
     return this?.add(Duration(days: DateTime.daysPerWeek - (this?.weekday)!));
   }
 }

@@ -117,18 +117,20 @@ You have many option for changes in : style , locale and structure.
 
 ## CalendarOptions :
 
-| Option       	            | Type                         	 | Description                                                        |
-|---------------------------|--------------------------------|--------------------------------------------------------------------|
-| toggleViewType 	          | bool	                          | Whether user can toggle view type between monthly and daily or not |
-| viewType 	                | ViewType	                      | Default view type of Calendar Daily or Monthly                     |
-| font	 	                   | String 	                       | Name of your font                                                  |
-| headerMonthBackColor	 	   | Color 	                        | The background color of Calendar card                              |
-| headerMonthShadowColor	 	 | Color 	                        | The shadow color of Calendar card                                  |
-| headerMonthElevation	 	   | double 	                       | The elevation of shadow color Calendar card                        |
-| headerMonthShape	 	       | ShapeBorder 	                  | The shape of Calendar card like(RoundedRectangleBorder)            |
-| bottomSheetBackColor	 	   | Color 	                        | The background color of select month and year bottom sheet)
-| weekStartDate	 	            | DateTime 	                        | The background color of the week started from date)
-| weekEndDate	 	            | DateTime 	                        | The background color of the week ended from date) |
+| Option       	           | Type                         	 | Description                                                               |
+|-------------------------|--------------------------------|---------------------------------------------------------------------------|
+| toggleViewType 	         | bool	                          | Whether user can toggle view type between monthly and daily or not        |
+| toggleWeekMode 	         | bool	                          | Whether user can toggle week mode or not                                  |
+| startWeekWithSunday 	    | bool	                          | Default week start with Monday, it useful when want to show week selected |
+| viewType 	               | ViewType	                      | Default view type of Calendar Daily or Monthly                            |
+| font	 	                   | String 	                       | Name of your font                                                         |
+| headerMonthBackColor	 	   | Color 	                        | The background color of Calendar card                                     |
+| headerMonthShadowColor	 	 | Color 	                        | The shadow color of Calendar card                                         |
+| headerMonthElevation	 	   | double 	                       | The elevation of shadow color Calendar card                               |
+| headerMonthShape	 	       | ShapeBorder 	                  | The shape of Calendar card like(RoundedRectangleBorder)                   |
+| bottomSheetBackColor	 	   | Color 	                        | The background color of select month and year bottom sheet)               
+| weekStartDate	 	          | DateTime 	                        | The background color of the week started from date)                       
+| weekEndDate	 	            | DateTime 	                        | The background color of the week ended from date)                         |
 
 ### HeaderOptions :
 

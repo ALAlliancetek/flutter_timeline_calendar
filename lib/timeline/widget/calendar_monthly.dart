@@ -33,6 +33,7 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
   void initState() {
     headersStyle = HeaderOptions.of(context);
     dayNames = Translator.getNameOfDay(headersStyle.weekDayStringType);
+    // Note: shift is handled in didChangeDependencies
     dayOptions = DayOptions.of(context);
     super.initState();
   }
@@ -41,12 +42,19 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
   void didChangeDependencies() {
     currDay = CalendarUtils.getPartByInt(format: PartFormat.DAY);
     currMonth = CalendarUtils.getPartByInt(format: PartFormat.MONTH);
+    dayNames = Translator.getNameOfDay(headersStyle.weekDayStringType);
+    if (!CalendarOptions.of(context).startWeekWithSunday) {
+      dayNames = dayNames.sublist(1)..addAll(dayNames.sublist(0, 1));
+    }
     super.didChangeDependencies();
   }
 
   @override
   void didUpdateWidget(covariant CalendarMonthly oldWidget) {
     dayNames = Translator.getNameOfDay(headersStyle.weekDayStringType);
+    if (!CalendarOptions.of(context).startWeekWithSunday) {
+      dayNames = dayNames.sublist(1)..addAll(dayNames.sublist(0, 1));
+    }
     currDay = CalendarUtils.getPartByInt(format: PartFormat.DAY);
     currMonth = CalendarUtils.getPartByInt(format: PartFormat.MONTH);
     super.didUpdateWidget(oldWidget);
@@ -108,8 +116,16 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
   }
 
   _buildMonthView() {
-    weekStartDate = CalendarOptions.of(context).weekStartDate;
-    weekEndDate = CalendarOptions.of(context).weekEndDate;
+    if (CalendarOptions.of(context).isWeekMode) {
+      final currentSelected = TimelineCalendar.dateTime!.toDateTime();
+      weekStartDate = currentSelected.findFirstDateOfTheWeek(
+          startWeekWithSunday: CalendarOptions.of(context).startWeekWithSunday);
+      weekEndDate = currentSelected.findLastDateOfTheWeek(
+          startWeekWithSunday: CalendarOptions.of(context).startWeekWithSunday);
+    } else {
+      weekStartDate = null;
+      weekEndDate = null;
+    }
 
     final int firstDayIndex =
         CalendarMonthlyUtils.getFirstDayOfMonth(dayNames, headersStyle);
@@ -161,11 +177,10 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
 
   buildCurrentMonthDay(day) {
     final curYear = CalendarMonthlyUtils.getYear(currMonth);
-    final selectedDate = TimelineCalendar.dateTime!;
-    final bool isSelected =
-        selectedDate.year == curYear &&
-            selectedDate.month == currMonth &&
-            selectedDate.day == day;
+    final selectedDate = TimelineCalendar.selectedDateTime;
+    final bool isSelected = selectedDate != null && selectedDate.year == curYear &&
+        selectedDate.month == currMonth &&
+        selectedDate.day == day;
 
     bool isBeforeToday =
         CalendarUtils.isBeforeThanToday(curYear, currMonth, day);
@@ -198,7 +213,9 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
             : DayOptions.of(context).disableDaysAfterNow
                 ? !isAfterToday
                 : true),
-        selected: DayOptions.of(context).isHighlight1stDay ? day == currDay : isSelected || isToday,
+        selected: DayOptions.of(context).isHighlight1stDay
+            ? day == currDay
+            : isSelected || isToday,
         //selected: DayOptions.of(context).isHighlight1stDay ? day == currDay : isSelected && isToday
         //selected: day == currDay,
         //selected: isSelected && isToday,

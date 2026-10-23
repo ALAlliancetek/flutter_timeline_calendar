@@ -25,8 +25,16 @@ class CalendarDaily extends StatelessWidget {
                     ? 80.0
                     : 60.0)) *
             (dayIndex - 1));
-    weekStartDate = CalendarOptions.of(context).weekStartDate;
-    weekEndDate = CalendarOptions.of(context).weekEndDate;
+    if (CalendarOptions.of(context).isWeekMode) {
+      final currentSelected = TimelineCalendar.dateTime!.toDateTime();
+      weekStartDate = currentSelected.findFirstDateOfTheWeek(
+          startWeekWithSunday: CalendarOptions.of(context).startWeekWithSunday);
+      weekEndDate = currentSelected.findLastDateOfTheWeek(
+          startWeekWithSunday: CalendarOptions.of(context).startWeekWithSunday);
+    } else {
+      weekStartDate = null;
+      weekEndDate = null;
+    }
 
     executeAsync(context);
     // Yearly , Monthly , Weekly and Daily calendar
@@ -109,16 +117,13 @@ class CalendarDaily extends StatelessWidget {
     int day = dayIndex;
     CalendarUtils.getDays(headersStyle.weekDayStringType, currentMonth)
         .forEach((index, weekDay) {
-          
       bool selected1Day = index == day;
       //print("selected1Day index: $index, day: $day");
-     
-      final selectedDate = TimelineCalendar.dateTime!;
-      final bool selected =
-          (selectedDate.year == currentYear &&
+
+      final selectedDate = TimelineCalendar.selectedDateTime;
+      final bool selected = selectedDate != null && (selectedDate.year == currentYear &&
               selectedDate.month == currentMonth &&
-              selectedDate.day == index )||
-              (CalendarUtils.isToday(currentYear, currentMonth, index));
+              selectedDate.day == index);
       //print("isHighlight1stDay: ${DayOptions.of(context).isHighlight1stDay}, selected1Day: $selected1Day, selected: $selected");
 
       // Actual date represented by this Day widget
@@ -156,7 +161,9 @@ class CalendarDaily extends StatelessWidget {
               : DayOptions.of(context).disableDaysAfterNow
                   ? !isAfterToday
                   : true),
-          selected: DayOptions.of(context).isHighlight1stDay == true ? selected1Day : selected,
+          selected: DayOptions.of(context).isHighlight1stDay == true
+              ? selected1Day
+              : selected,
           //selected: selected1Day,
           //selected: selected,
           useUnselectedEffect: false,

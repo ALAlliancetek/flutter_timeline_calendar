@@ -18,12 +18,14 @@ class Header extends StatelessWidget {
   Function onDateTimeReset;
   Function(int selectedYear) onYearChanged;
   Function(int selectedMonth) onMonthChanged;
+  VoidCallback? onWeekIconTap;
 
   Header(
       {required this.onViewTypeChanged,
       required this.onYearChanged,
       required this.onMonthChanged,
-      required this.onDateTimeReset});
+      required this.onDateTimeReset,
+      this.onWeekIconTap});
 
   @override
   Widget build(BuildContext context) {
@@ -147,6 +149,7 @@ class Header extends StatelessWidget {
                 children: [
                   !isInTodayIndex() ? buildRefreshView(context) : Container(),
                   buildSelectViewType(context),
+                  buildWeekViewIcon(context),
                   InkWell(
                     customBorder: CircleBorder(),
                     onTap: () {
@@ -230,7 +233,29 @@ class Header extends StatelessWidget {
     return const SizedBox();
   }
 
-
+  buildWeekViewIcon(BuildContext context) {
+    if (CalendarOptions.of(context).toggleWeekMode) {
+      return InkWell(
+        customBorder: const CircleBorder(),
+        onTap: () {
+          CalendarOptions.of(context).isWeekMode =
+              !CalendarOptions.of(context).isWeekMode;
+          onWeekIconTap?.call();
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(5),
+          child: Icon(
+            CalendarOptions.of(context).isWeekMode
+                ? Icons.view_week
+                : Icons.view_week_outlined,
+            size: 18,
+            color: HeaderOptions.of(context).calendarIconColor,
+          ),
+        ),
+      );
+    }
+    return const SizedBox();
+  }
 
   void changeMonth(BuildContext context, {required bool next}) {
     if (next) {
@@ -239,12 +264,8 @@ class Header extends StatelessWidget {
       CalendarUtils.previousMonth();
     }
 
-    final month =
-    CalendarUtils.getPartByInt(format: PartFormat.MONTH);
+    final month = CalendarUtils.getPartByInt(format: PartFormat.MONTH);
 
     onMonthChanged.call(month);
   }
-
-
-
 }

@@ -7,6 +7,7 @@ import 'package:flutter_timeline_calendar/timeline/utils/calendar_utils.dart';
 import 'package:flutter_timeline_calendar/timeline/widget/calendar_daily.dart';
 import 'package:flutter_timeline_calendar/timeline/widget/calendar_monthly.dart';
 import 'package:flutter_timeline_calendar/timeline/widget/header.dart';
+import 'package:flutter_timeline_calendar/timeline/utils/datetime_extension.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../model/calendar_options.dart';
@@ -14,17 +15,22 @@ import '../model/day_options.dart';
 import '../model/headers_options.dart';
 
 typedef CalendarChangeCallback = Function(CalendarDateTime);
+typedef WeekChangeCallback = Function(DateTime, DateTime);
 
 class TimelineCalendar extends StatefulWidget {
   static late CalendarProvider calendarProvider;
   static late CalendarDateTime? dateTime;
+  static CalendarDateTime? selectedDateTime;
+  static CalendarDateTime? _lastPassedDateTime;
   static late String calendarLanguage;
   static late CalendarType calendarType;
   CalendarChangeCallback? onChangeDateTime;
+  WeekChangeCallback? onWeekChanged;
   CalendarChangeCallback? onMonthChanged;
   CalendarChangeCallback? onYearChanged;
   CalendarChangeCallback? onDateTimeReset;
   ViewTypeChangeCallback? onChangeViewType;
+  VoidCallback? onWeekIconTap;
   CalendarOptions? calendarOptions;
   DayOptions? dayOptions;
   HeaderOptions? headerOptions;
@@ -37,11 +43,13 @@ class TimelineCalendar extends StatefulWidget {
     this.dayOptions,
     this.headerOptions,
     this.onChangeDateTime,
+    this.onWeekChanged,
     this.onMonthChanged,
     this.onDateTimeReset,
     this.onInit,
     this.onYearChanged,
     this.onChangeViewType,
+    this.onWeekIconTap,
     required calendarType,
     calendarLanguage,
   }) : super(key: key) {
@@ -53,7 +61,11 @@ class TimelineCalendar extends StatefulWidget {
 
     if (key?.currentContext == null ||
         calendarType != TimelineCalendar.calendarType) {
-      TimelineCalendar.dateTime = dateTime ?? calendarProvider.getDateTime();
+      if (_lastPassedDateTime == null || dateTime == null || !_lastPassedDateTime!.isDateEqual(dateTime)) {
+        _lastPassedDateTime = dateTime;
+        TimelineCalendar.selectedDateTime = dateTime ?? calendarProvider.getDateTime();
+        TimelineCalendar.dateTime = dateTime ?? calendarProvider.getDateTime();
+      }
     }
     TimelineCalendar.calendarType = calendarType ?? CalendarType.GREGORIAN;
     TimelineCalendar.calendarLanguage = calendarLanguage ?? 'en';
@@ -66,6 +78,9 @@ class TimelineCalendar extends StatefulWidget {
     TimelineCalendar.calendarProvider = createInstance();
     TimelineCalendar.dateTime =
         dateTime ?? TimelineCalendar.calendarProvider.getDateTime();
+    TimelineCalendar.selectedDateTime = 
+        dateTime ?? TimelineCalendar.calendarProvider.getDateTime();
+    TimelineCalendar._lastPassedDateTime = dateTime;
     TimelineCalendar.calendarType = calendarType;
     TimelineCalendar.calendarLanguage = calendarLanguage ?? 'en';
   }
@@ -98,6 +113,19 @@ class _TimelineCalendarState extends State<TimelineCalendar> {
               child: Column(
                 children: [
                   Header(
+                    onWeekIconTap: () {
+                      if (!CalendarOptions.of(context).isWeekMode) {
+                        widget.onChangeDateTime?.call(TimelineCalendar.dateTime!);
+                      } else {
+                        final currentSelected = TimelineCalendar.dateTime!.toDateTime();
+                        widget.onWeekChanged?.call(
+                          currentSelected.findFirstDateOfTheWeek(startWeekWithSunday: CalendarOptions.of(context).startWeekWithSunday)!,
+                          currentSelected.findLastDateOfTheWeek(startWeekWithSunday: CalendarOptions.of(context).startWeekWithSunday)!
+                        );
+                      }
+                      setState(() {});
+                      widget.onWeekIconTap?.call();
+                    },
                     onDateTimeReset: () {
                       widget.onDateTimeReset?.call(TimelineCalendar.dateTime!);
                       setState(() {});
@@ -137,9 +165,17 @@ class _TimelineCalendarState extends State<TimelineCalendar> {
                                 ),
                               ),
                               CalendarMonthly(onCalendarChanged: () {
-                                widget.onChangeDateTime
-                                    ?.call(TimelineCalendar.dateTime!);
-
+                                TimelineCalendar.selectedDateTime = TimelineCalendar.dateTime;
+                                if (CalendarOptions.of(context).isWeekMode) {
+                                  final currentSelected = TimelineCalendar.dateTime!.toDateTime();
+                                  widget.onWeekChanged?.call(
+                                    currentSelected.findFirstDateOfTheWeek(startWeekWithSunday: CalendarOptions.of(context).startWeekWithSunday)!,
+                                    currentSelected.findLastDateOfTheWeek(startWeekWithSunday: CalendarOptions.of(context).startWeekWithSunday)!
+                                  );
+                                } else {
+                                  widget.onChangeDateTime
+                                      ?.call(TimelineCalendar.dateTime!);
+                                }
                                 setState(() {});
                               }),
                             ],
@@ -158,8 +194,17 @@ class _TimelineCalendarState extends State<TimelineCalendar> {
                                 ),
                               ),
                               CalendarDaily(onCalendarChanged: () {
-                                widget.onChangeDateTime
-                                    ?.call(TimelineCalendar.dateTime!);
+                                TimelineCalendar.selectedDateTime = TimelineCalendar.dateTime;
+                                if (CalendarOptions.of(context).isWeekMode) {
+                                  final currentSelected = TimelineCalendar.dateTime!.toDateTime();
+                                  widget.onWeekChanged?.call(
+                                    currentSelected.findFirstDateOfTheWeek(startWeekWithSunday: CalendarOptions.of(context).startWeekWithSunday)!,
+                                    currentSelected.findLastDateOfTheWeek(startWeekWithSunday: CalendarOptions.of(context).startWeekWithSunday)!
+                                  );
+                                } else {
+                                  widget.onChangeDateTime
+                                      ?.call(TimelineCalendar.dateTime!);
+                                }
                                 setState(() {});
                               }),
                             ],
@@ -195,6 +240,8 @@ class _TimelineCalendarState extends State<TimelineCalendar> {
   void dispose() {
     /// reset date time after disposing child
     TimelineCalendar.dateTime = TimelineCalendar.calendarProvider.getDateTime();
+    TimelineCalendar.selectedDateTime = TimelineCalendar.dateTime;
+    TimelineCalendar._lastPassedDateTime = null;
     // EventCalendar.dateTime = null;
     super.dispose();
   }

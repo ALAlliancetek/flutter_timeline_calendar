@@ -52,8 +52,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   getLatestWeek() {
     setState(() {
-      weekStart = selectedDateTime.toDateTime().findFirstDateOfTheWeek();
-      weekEnd = selectedDateTime.toDateTime().findLastDateOfTheWeek();
+      weekStart = selectedDateTime.toDateTime().findFirstDateOfTheWeek(startWeekWithSunday: true);
+      weekEnd = selectedDateTime.toDateTime().findLastDateOfTheWeek(startWeekWithSunday: true);
     });
   }
 
@@ -79,6 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
       calendarOptions: CalendarOptions(
           viewType: ViewType.DAILY,
           toggleViewType: true,
+          toggleWeekMode: true,
+          startWeekWithSunday: true,
           headerMonthElevation: 10,
           headerMonthShadowColor: Colors.black26,
           headerMonthBackColor: Colors.transparent,
@@ -119,16 +121,19 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       onMonthChanged: (monthDateTime) {
         print("Month Change $monthDateTime");
-        selectedDateTime = monthDateTime;
         getLatestWeek();
       },
       onYearChanged: (yearDateTime) {
         print("Year Change $yearDateTime");
-        selectedDateTime = yearDateTime;
         getLatestWeek();
       },
       onChangeViewType: (viewType) {
         print("View Type Change $viewType");
+      },
+      onWeekChanged: (weekStart, weekEnd) {
+        print("Week Change $weekStart - $weekEnd");
+        this.weekStart = weekStart;
+        this.weekEnd = weekEnd;
       },
       dateTime: selectedDateTime,
     );
