@@ -51,7 +51,7 @@ import 'package:flutter_timeline_calendar/flutter_timeline_calendar.dart';
 ## Basic Usage :
 
 You can load a full calendar .
-
+****
 ```dart
     return TimelineCalendar(
           calendarType: CalendarType.GREGORIAN,
@@ -59,9 +59,13 @@ You can load a full calendar .
           calendarOptions: CalendarOptions(
             viewType: ViewType.DAILY,
             toggleViewType: true,
+            toggleWeekMode: true,
+            startWeekWithSunday: true,
             headerMonthElevation: 10,
             headerMonthShadowColor: Colors.black26,
             headerMonthBackColor: Colors.transparent,
+            weekStartDate: TimelineCalendar.calendarProvider.getDateTime().toDateTime().findFirstDateOfTheWeek(startWeekWithSunday: true),
+            weekEndDate: TimelineCalendar.calendarProvider.getDateTime().toDateTime().findLastDateOfTheWeek(startWeekWithSunday: true),
           ),
           dayOptions: DayOptions(
               compactMode: true,
@@ -86,7 +90,12 @@ You can load a full calendar .
             },
             onYearChanged: (datetime) {
                     print(datetime.getDate());
-                },
+                    },
+            onWeekChanged: (weekStart, weekEnd) {
+                print("Week Change $weekStart - $weekEnd");
+                this.weekStart = weekStart;
+                this.weekEnd = weekEnd;
+            },
           dateTime: selectedDateTime,
         );
 ```
